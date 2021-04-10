@@ -1,6 +1,6 @@
 import deepEqual from 'fast-deep-equal/react';
 
-export interface PromiseCache<Data = unknown> {
+interface PromiseCache<Data = unknown> {
   promise?: Promise<void>;
   inputs: any[];
   error?: any;
