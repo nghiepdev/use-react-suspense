@@ -1,14 +1,10 @@
 # use-react-suspense
 
-React hooks that can make any data suspensible.
-Inspired by [react-promise-suspense](https://github.com/vigzmv/react-promise-suspense) flexable and strongly-typed.
-
 [![NPM version](https://img.shields.io/npm/v/use-react-suspense.svg)](https://www.npmjs.com/package/use-react-suspense)
 [![NPM monthly download](https://img.shields.io/npm/dm/use-react-suspense.svg)](https://www.npmjs.com/package/use-react-suspense)
 
-## Example
-
-https://codesandbox.io/s/use-react-suspense-example-mcxou
+> React hooks that can make any data suspensible.  
+> Inspired by [react-promise-suspense](https://github.com/vigzmv/react-promise-suspense) flexible and strongly-typed.
 
 ## Installation
 
@@ -20,26 +16,23 @@ $ yarn add use-react-suspense
 
 ## Usage
 
+**Example**
+
+https://codesandbox.io/s/use-react-suspense-example-mcxou
+
 ```tsx
 import {useSuspense} from 'use-react-suspense';
 
-const DelayedComponent = () => {
+const PostListing = () => {
   const [data, {remove}] = useSuspense(
-    (input1: string, input2: string) => {
-      return Promise.resolve([
-        {
-          username: input1,
-          role: 'admin',
-          age: 18,
-        },
-        {
-          username: input2,
-          role: 'mod',
-          age: 20,
-        },
-      ]);
+    async (url: string, method: 'GET' | 'POST') => {
+      const response = await fetch(url, {
+        method,
+      }).then(res => res.json());
+
+      return response;
     },
-    ['john doe', 'jane']
+    ['https://api.domain.com/posts', 'GET']
   );
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
@@ -48,7 +41,7 @@ const DelayedComponent = () => {
 export default function App() {
   return (
     <Suspense fallback='Loading...'>
-      <DelayedComponent />
+      <PostListing />
     </Suspense>
   );
 }
@@ -57,7 +50,7 @@ export default function App() {
 ## API
 
 ```ts
-useSuspense(AsyncFunction, Input[], Options)
+useSuspense(AsyncFunction, Input[], Options): SuspenseResult
 ```
 
 ### AsyncFunction
@@ -88,6 +81,24 @@ The time in milliseconds after data is considered stale
 Type: `Boolean`  
 Default: `true`
 If set to `false`, the error will never cache
+
+### SuspenseResult
+
+An array of your data and helpers
+
+```ts
+const [data, {remove}] = useSuspense(...);
+```
+
+#### First
+
+The data of `AsyncFunction`
+
+#### Second
+
+And object list of helpers:
+
+- `remove: () => void`: Remove cache manually
 
 ## License
 

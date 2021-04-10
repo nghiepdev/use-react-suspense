@@ -23,6 +23,10 @@ export interface UseSuspenseOptions {
 
 const promiseCaches: PromiseCache[] = [];
 
+/**
+ * TODO
+ * Improve inputs type
+ */
 export const useSuspense = <Data = any>(
   promise: (...inputs: any) => Promise<Data>,
   inputs: any[] = [],
