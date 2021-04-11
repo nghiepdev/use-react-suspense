@@ -4,11 +4,11 @@
 [![NPM monthly download](https://img.shields.io/npm/dm/use-react-suspense.svg)](https://www.npmjs.com/package/use-react-suspense)
 
 > React hooks that can make any data suspensible.  
-> Inspired by [react-promise-suspense](https://github.com/vigzmv/react-promise-suspense) flexible and strongly-typed.
+> Forked from [react-promise-suspense](https://github.com/vigzmv/react-promise-suspense)
 
 ## Installation
 
-To install the stable version you can use:
+To install the stable version:
 
 ```sh
 $ yarn add use-react-suspense
@@ -25,7 +25,7 @@ import {useSuspense} from 'use-react-suspense';
 
 const PostListing = () => {
   const [data, {remove}] = useSuspense(
-    async (url: string, method: 'GET' | 'POST') => {
+    async (url, method) => {
       const response = await fetch(url, {
         method,
       }).then(res => res.json());
@@ -55,19 +55,28 @@ useSuspense(AsyncFunction, Input[], Options): SuspenseResult
 
 ### AsyncFunction
 
-Type: Promise `Function`  
+Type: `Function<Promise>`  
 Required: `true`  
-Async function resolve your data
+The function takes inputs arguments
+
+```tsx
+const [data] = useSuspense(
+  (arg1, arg2) => {
+    console.log(arg1, arg2);
+  },
+  [input1, input1]
+);
+```
 
 ### Input[]
 
-Type: `Array`  
+Type: `Array<any>`  
 Default: `[]`  
-An array of dependencies, using deep comparison to cache data, will be pass as arguments to `AsyncFunction`.
+An array of dependencies, using deep comparison to cache data. And as arguments on to `AsyncFunction`
 
 ### Options
 
-Type: `UseSuspenseOptions`  
+Type: `Object`  
 Required: `false`
 
 #### Options.staleTime
@@ -84,21 +93,26 @@ If set to `false`, the error will never cache
 
 ### SuspenseResult
 
-An array of your data and helpers
+An array of your data and utility
 
 ```ts
-const [data, {remove}] = useSuspense(...);
+const [data, {remove}] = useSuspense(...)
 ```
 
 #### First
 
-The data of `AsyncFunction`
+Type: `Promise<any>`
+
+The data has resolved from `AsyncFunction`
 
 #### Second
 
-And object list of helpers:
+Type: `Object`
 
-- `remove: () => void`: Remove cache manually
+And object list of utility:
+
+- `remove: () => void`  
+  Remove cache manually. This is helpful when to want cache forever and clear cache on unmount the component.
 
 ## License
 
