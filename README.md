@@ -76,7 +76,7 @@ Type: `Number`
 Default: `Infinity`  
 The time in milliseconds after data is considered stale
 
-#### Options.cacheWithError
+#### Options.cacheError
 
 Type: `Boolean`  
 Default: `true`

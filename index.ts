@@ -18,7 +18,7 @@ export interface UseSuspenseOptions {
    * If set to `false`, the error will never cache
    * @default true
    */
-  cacheWithError?: boolean;
+  cacheError?: boolean;
 }
 
 const promiseCaches: PromiseCache[] = [];
@@ -33,7 +33,7 @@ export const useSuspense = <Data = any>(
   options?: UseSuspenseOptions
 ) => {
   const staleTime = options?.staleTime ?? Infinity;
-  const cacheWithError = options?.cacheWithError ?? true;
+  const cacheError = options?.cacheError ?? true;
 
   for (const promiseCache of promiseCaches) {
     if (deepEqual(inputs, promiseCache.inputs)) {
@@ -59,7 +59,7 @@ export const useSuspense = <Data = any>(
         .then((response: Data) => {
           const remove = () => {
             const index = promiseCaches.indexOf(promiseCache);
-            if (-1 !== index) {
+            if (index !== -1) {
               promiseCaches.splice(index, 1);
             }
           };
@@ -74,10 +74,10 @@ export const useSuspense = <Data = any>(
           promiseCache.error = error;
 
           // Remove cache of error
-          if (!cacheWithError) {
+          if (!cacheError) {
             setTimeout(() => {
               const index = promiseCaches.indexOf(promiseCache);
-              if (-1 !== index) {
+              if (index !== -1) {
                 promiseCaches.splice(index, 1);
               }
             }, 0);
