@@ -40,7 +40,7 @@ const PostListing = () => {
 
 export default function App() {
   return (
-    <Suspense fallback='Loading...'>
+    <Suspense fallback="Loading...">
       <PostListing />
     </Suspense>
   );
@@ -50,7 +50,7 @@ export default function App() {
 ## API
 
 ```ts
-useSuspense(AsyncFunction, Input[], Options): SuspenseResult
+useSuspense(AsyncFunction, Inputs, Options): SuspenseResult
 ```
 
 ### AsyncFunction
@@ -68,7 +68,7 @@ const [data] = useSuspense(
 );
 ```
 
-### Input[]
+### Inputs
 
 Type: `Array<any>`  
 Default: `[]`  
