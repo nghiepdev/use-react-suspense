@@ -79,7 +79,7 @@ An array of dependencies, using deep comparison to cache data. And as arguments 
 Type: `Object`  
 Required: `false`
 
-#### Options.staleTime
+#### Options.cacheTime
 
 Type: `Number`  
 Default: `Infinity`  
@@ -112,7 +112,7 @@ Type: `Object`
 And object list of utility:
 
 - `remove: () => void`  
-  Remove cache manually. This is helpful when to want cache forever and clear cache on unmount the component.
+  Remove cache manually. This is helpful when to want cache data and clear cache on unmount the component.
 
 ## License
 

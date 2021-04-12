@@ -15,7 +15,7 @@ export interface UseSuspenseOptions {
    * If set to `Infinity`, the data will never be considered stale
    * @default Infinity
    */
-  staleTime?: number;
+  cacheTime?: number;
   /**
    * If set to `false`, the error will never cache
    * @default true
@@ -33,7 +33,7 @@ export const useSuspense = <
   inputs: Inputs,
   options?: UseSuspenseOptions
 ) => {
-  const staleTime = options?.staleTime ?? Infinity;
+  const cacheTime = options?.cacheTime ?? Infinity;
   const cacheError = options?.cacheError ?? true;
 
   for (const promiseCache of promiseCaches) {
@@ -60,8 +60,8 @@ export const useSuspense = <
           }
         };
 
-        if (staleTime !== Infinity) {
-          setTimeout(remove, staleTime);
+        if (cacheTime !== Infinity) {
+          setTimeout(remove, cacheTime);
         }
 
         promiseCache.response = [data, {remove}];

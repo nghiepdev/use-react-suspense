@@ -1,7 +1,7 @@
 {
   "name": "use-react-suspense",
   "version": "0.1.0",
-  "description": "React hooks that can make any data suspensible.",
+  "description": "React hooks that can make any data suspensible",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
