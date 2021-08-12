@@ -79,7 +79,7 @@ An array of dependencies, using deep comparison to cache data. And as arguments 
 Type: `Object`  
 Required: `false`
 
-#### Options.staleTime
+#### Options.cacheTime
 
 Type: `Number`  
 Default: `Infinity`  

@@ -1,8 +1,10 @@
-export interface PromiseCache<Data = unknown> {
-  promise?: Promise<void>;
-  inputs: any[];
+export type Response<Data> = [Data, {remove: () => void}];
+
+export interface PromiseCache<Data, Inputs> {
+  promise: Promise<void>;
+  inputs: Inputs;
   error?: any;
-  response: [Data, {remove: () => void}];
+  response?: Response<Data>;
 }
 
 export interface UseSuspenseOptions {
@@ -11,7 +13,7 @@ export interface UseSuspenseOptions {
    * If set to `Infinity`, the data will never be considered stale
    * @default Infinity
    */
-  staleTime?: number;
+  cacheTime?: number;
   /**
    * If set to `true`, the error will be cache
    * @default false
