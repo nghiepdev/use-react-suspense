@@ -13,8 +13,8 @@ export interface UseSuspenseOptions {
    */
   staleTime?: number;
   /**
-   * If set to `false`, the error will never cache
-   * @default true
+   * If set to `true`, the error will be cache
+   * @default false
    */
   cacheError?: boolean;
 }

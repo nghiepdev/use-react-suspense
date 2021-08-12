@@ -14,12 +14,12 @@ export const useSuspense = <Data = any>(
 
   for (const promiseCache of promiseCaches) {
     if (deepEqual(inputs, promiseCache.inputs)) {
-      // If an error occurred,
+      // If an error occurred
       if (Object.prototype.hasOwnProperty.call(promiseCache, 'error')) {
         throw promiseCache.error;
       }
 
-      // If a response was successful,
+      // If a response was successful
       if (Object.prototype.hasOwnProperty.call(promiseCache, 'response')) {
         return promiseCache.response as PromiseCache<Data>['response'];
       }
@@ -28,10 +28,10 @@ export const useSuspense = <Data = any>(
     }
   }
 
-  // The request is new or has changed.
+  // The request is new or has changed
   const promiseCache: PromiseCache<Data> = {
     promise:
-      // Make the promise request.
+      // Make the promise request
       promise(...inputs)
         .then((response: Data) => {
           const remove = () => {
@@ -50,7 +50,7 @@ export const useSuspense = <Data = any>(
         .catch((error: any) => {
           promiseCache.error = error;
 
-          // Remove cache of error
+          // Do not cache error
           if (!cacheError) {
             setTimeout(() => {
               const index = promiseCaches.indexOf(promiseCache);

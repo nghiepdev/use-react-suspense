@@ -24,7 +24,7 @@ https://codesandbox.io/s/use-react-suspense-example-mcxou
 import {useSuspense} from 'use-react-suspense';
 
 const PostListing = () => {
-  const [data, {remove}] = useSuspense(
+  const [data] = useSuspense(
     async (url, method) => {
       const response = await fetch(url, {
         method,
@@ -32,7 +32,7 @@ const PostListing = () => {
 
       return response;
     },
-    ['https://api.domain.com/posts', 'GET']
+    ['https://api.domain.com/posts', 'GET'] as const
   );
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
@@ -59,12 +59,12 @@ Type: `Function<Promise>`
 Required: `true`  
 The function takes inputs arguments
 
-```tsx
+```ts
 const [data] = useSuspense(
   (arg1, arg2) => {
     console.log(arg1, arg2);
   },
-  [input1, input1]
+  [input1, input2]
 );
 ```
 
@@ -88,8 +88,8 @@ The time in milliseconds after data is considered stale
 #### Options.cacheError
 
 Type: `Boolean`  
-Default: `true`
-If set to `false`, the error will never cache
+Default: `false`  
+If set to `true`, the error will be cache
 
 ### SuspenseResult
 
@@ -112,7 +112,7 @@ Type: `Object`
 And object list of utility:
 
 - `remove: () => void`  
-  Remove cache manually. This is helpful when to want cache forever and clear cache on unmount the component.
+  Remove cache manually. This is helpful when to want clear cache on unmount the component.
 
 ## License
 
