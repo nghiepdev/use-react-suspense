@@ -49,17 +49,17 @@ export default function App() {
 
 ## API
 
-```ts
-useSuspense(AsyncFunction, Input[], Options): SuspenseResult
+```tsx
+const [data] = useSuspense(Function, Input[], Options): SuspenseResult
 ```
 
-### AsyncFunction
+### Function
 
 Type: `Function<Promise>`  
 Required: `true`  
-The function takes inputs arguments
+The function takes inputs arguments and returns a thenable (async function or a promise)
 
-```ts
+```tsx
 const [data] = useSuspense(
   (arg1, arg2) => {
     console.log(arg1, arg2);
@@ -72,7 +72,7 @@ const [data] = useSuspense(
 
 Type: `Array<any>`  
 Default: `[]`  
-An array of dependencies, using deep comparison to cache data. And as arguments on to `AsyncFunction`
+An array of dependencies, using deep comparison to cache data. And as arguments on to `Function`
 
 ### Options
 
@@ -83,7 +83,7 @@ Required: `false`
 
 Type: `Number`  
 Default: `Infinity`  
-The time in milliseconds after data is considered stale
+The time in milliseconds after data will be clean, it defaults to `Infinity` (keep-alive forever)
 
 #### Options.cacheError
 
@@ -95,24 +95,24 @@ If set to `true`, the error will be cache
 
 An array of your data and utility
 
-```ts
-const [data, {remove}] = useSuspense(...)
+```tsx
+const [data, {clear}] = useSuspense(...)
 ```
 
-#### First
+#### The 1st
 
 Type: `Promise<any>`
 
-The data has resolved from `AsyncFunction`
+The data has resolved from `Function`
 
-#### Second
+#### The 2nd
 
 Type: `Object`
 
 And object list of utility:
 
-- `remove: () => void`  
-  Remove cache manually. This is helpful when to want clear cache on unmount the component.
+- `clear: () => void`  
+  Clear cache manually. This is helpful when to want clear cache on unmount the component.
 
 ## License
 

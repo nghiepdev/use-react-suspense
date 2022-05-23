@@ -32,7 +32,7 @@ export const useSuspense = <
   const promiseCache: PromiseCache<Data, Inputs> = {
     promise: promise(...inputs)
       .then((data: Data) => {
-        const remove = () => {
+        const clear = () => {
           const index = promiseCaches.indexOf(promiseCache);
           if (index !== -1) {
             promiseCaches.splice(index, 1);
@@ -40,12 +40,12 @@ export const useSuspense = <
         };
 
         if (cacheTime !== Infinity) {
-          setTimeout(remove, cacheTime);
+          setTimeout(clear, cacheTime);
         }
 
-        promiseCache.response = [data, {remove}];
+        promiseCache.response = [data, {clear}];
       })
-      .catch((error: any) => {
+      .catch(error => {
         promiseCache.error = error;
 
         if (!cacheError) {
