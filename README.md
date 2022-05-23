@@ -26,11 +26,9 @@ import {useSuspense} from 'use-react-suspense';
 const PostListing = () => {
   const [data] = useSuspense(
     async (url, method) => {
-      const response = await fetch(url, {
-        method,
-      }).then(res => res.json());
+      const response = await fetch(url, {method});
 
-      return response;
+      return response.json();
     },
     ['https://api.domain.com/posts', 'GET'] as const
   );
@@ -61,7 +59,7 @@ The function takes inputs arguments and returns a thenable (async function or a 
 
 ```tsx
 const [data] = useSuspense(
-  (arg1, arg2) => {
+  async (arg1, arg2) => {
     console.log(arg1, arg2);
   },
   [input1, input2]
@@ -101,7 +99,7 @@ const [data, {clear}] = useSuspense(...)
 
 #### The 1st
 
-Type: `Promise<any>`
+Type: `any`
 
 The data has resolved from `Function`
 
