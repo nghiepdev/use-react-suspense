@@ -3,7 +3,6 @@
   "version": "0.4.0",
   "description": "React hooks that can make any data suspensible.",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -32,6 +31,6 @@
     "suspense",
     "use-suspense"
   ],
-  "author": "Nghiep <me@nghiepit.dev>",
+  "author": "Nghiep <me@nghiep.dev>",
   "license": "MIT"
 }

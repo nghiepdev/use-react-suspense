@@ -54,7 +54,7 @@ export const useSuspense = <
             if (index !== -1) {
               promiseCaches.splice(index, 1);
             }
-          }, 0);
+          }, 500);
         }
       }),
     inputs,
